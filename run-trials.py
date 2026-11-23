@@ -27,8 +27,9 @@ def run_trial(t):
                 parent = os.path.dirname(full)
                 if parent:
                     os.makedirs(parent, exist_ok=True)
-                with open(full, "w", encoding="utf-8") as f:
-                    f.write(content)
+                # Binary mode: no newline translation (CRLF files must stay CRLF).
+                with open(full, "wb") as f:
+                    f.write(content.encode("utf-8"))
             proc = subprocess.run(
                 ["node", MAIN] + c["argv"],
                 cwd=td,
@@ -42,8 +43,9 @@ def run_trial(t):
                 for name in names:
                     full = os.path.join(root, name)
                     rel = os.path.relpath(full, td)
-                    with open(full, "r", encoding="utf-8") as f:
-                        got_files[rel] = f.read()
+                    # Binary mode: no newline translation (CRLF files must stay CRLF).
+                    with open(full, "rb") as f:
+                        got_files[rel] = f.read().decode("utf-8")
             want = e["files"]
             why = []
             if proc.returncode != e["exit"]:

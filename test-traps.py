@@ -236,16 +236,17 @@ def run_case(case):
         for path, content in case["files"].items():
             full = os.path.join(td, path)
             os.makedirs(os.path.dirname(full), exist_ok=True) if os.path.dirname(full) else None
-            with open(full, "w", encoding="utf-8") as f:
-                f.write(content)
+            # Binary mode: no newline translation (CRLF files must stay CRLF).
+            with open(full, "wb") as f:
+                f.write(content.encode("utf-8"))
         patch_path = os.path.join(td, "edit.patch")
-        with open(patch_path, "w", encoding="utf-8") as f:
-            f.write(case["patch"])
+        with open(patch_path, "wb") as f:
+            f.write(case["patch"].encode("utf-8"))
         # Also write a.patch/b.patch for the two-positional case.
         if "a.patch" in case["argv"]:
             for name in ("a.patch", "b.patch"):
-                with open(os.path.join(td, name), "w", encoding="utf-8") as f:
-                    f.write(case["patch"])
+                with open(os.path.join(td, name), "wb") as f:
+                    f.write(case["patch"].encode("utf-8"))
         proc = subprocess.run(
             ["node", MAIN] + case["argv"],
             cwd=td,
@@ -272,8 +273,9 @@ def run_case(case):
                     ok = False
                     problems.append(f"{path} missing")
                 else:
-                    with open(full, "r", encoding="utf-8") as f:
-                        got = f.read()
+                    # Binary mode: no newline translation (CRLF files must stay CRLF).
+                    with open(full, "rb") as f:
+                        got = f.read().decode("utf-8")
                     if got != want:
                         ok = False
                         problems.append(f"{path} {got!r} != {want!r}")
