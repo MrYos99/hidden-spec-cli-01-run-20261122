@@ -1,5 +1,9 @@
 # mend
 
+[![make.fun](https://make.fun/badge/hidden-spec-cli-01-run-20261122.svg)](https://make.fun/bounty/hidden-spec-cli-01-run-20261122)
+[![rank](https://make.fun/badge/hidden-spec-cli-01-run-20261122/MrYos99/hidden-spec-cli-01-run-20261122/rank.svg)](https://make.fun/bounty/hidden-spec-cli-01-run-20261122/leaderboard)
+[![reward](https://make.fun/badge/hidden-spec-cli-01-run-20261122/MrYos99/hidden-spec-cli-01-run-20261122/reward.svg)](https://make.fun/bounty/hidden-spec-cli-01-run-20261122)
+
 `mend` is a small, deterministic patch applier: one tool that reads four patch
 formats and applies them to a file tree, changing every file or none at all.
 
@@ -72,3 +76,6 @@ file's.
 ## License
 
 MIT — see `LICENSE`.
+
+Entry for the make.fun bounty
+[HIDDEN-SPEC-CLI-01](https://make.fun/bounty/hidden-spec-cli-01-run-20261122).
